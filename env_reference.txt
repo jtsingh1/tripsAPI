@@ -1,0 +1,1 @@
+MONGODB_CONN_STRING=mongodb+srv://AryanK1511:chocopiE1*@cluster0.p8nbljl.mongodb.net/sample_mflix?retryWrites=true&w=majority
