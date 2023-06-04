@@ -5,18 +5,18 @@
 *  (including web sites) or distributed to other students.
 * 
 *  
-Name: Aryan Khurana 
-Student ID: 145282216 
-Date: 13 May 2023
-Cyclic Link: https://dull-jade-badger-vest.cyclic.app
+Name: Jas Tej Singh
+Student ID: 
+Date: 04 May 2023
+Cyclic Link: 
 *
 *
 ********************************************************************************/ 
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const MoviesDB = require("./modules/moviesDB.js");
-const db = new MoviesDB();
+const TripDB = require("./modules/tripDB.js");
+const db = new TripDB();
 
 // Initializing the app
 const app = express();
@@ -32,61 +32,61 @@ app.get('/', (req, res) => {
     res.json({ message: 'API Listening' });
 });
 
-// ========== ADD NEW MOVIE ===========
-app.post("/api/movies", (req, res) => {
-    const movieAdded = req.body;
-    db.addNewMovie(movieAdded)
-    .then((movie) => {
-        res.status(201).json(movie);
+// ========== ADD NEW TRIP ===========
+app.post("/api/trips", (req, res) => {
+    const tripAdded = req.body;
+    db.addNewTrip(tripAdded)
+    .then((trip) => {
+        res.status(201).json(trip);
     })
     .catch((err) => {
         res.status(500).json({ error: err });
     })
 })
 
-// ========== RETURN MOVIES ===========
-app.get("/api/movies", (req, res) => {
-    const { page, perPage, title } = req.query;
-    db.getAllMovies(page, perPage, title)
-    .then((movies) => {
-        res.status(201).json(movies);
+// ========== RETURN TRIPS ===========
+app.get("/api/trips", (req, res) => {
+    const { page, perPage} = req.query;
+    db.getAllTrips(page, perPage)
+    .then((trips) => {
+        res.status(201).json(trips);
     })
     .catch((err) => {
         res.status(500).json({ error: err });
     })
 })
 
-// ========== RETURN MOVIE ===========
-app.get("/api/movies/:id", (req, res) => {
+// ========== RETURN TRIP ===========
+app.get("/api/trips/:id", (req, res) => {
     const { id } = req.params;
-    db.getMovieById(id)
-    .then((movie) => {
-        res.status(201).json(movie);
+    db.getTripById(id)
+    .then((trip) => {
+        res.status(201).json(trip);
     })
     .catch((err) => {
       res.status(500).json({ error: err });
     });
 })
 
-// ========== UPDATE MOVIE ===========
-app.put('/api/movies/:id', (req, res) => {
+// ========== UPDATE TRIP ===========
+app.put('/api/trips/:id', (req, res) => {
     const { id } = req.params;
-    const updatedMovie = req.body;
-    db.updateMovieById(updatedMovie, id)
+    const updatedTrip = req.body;
+    db.updateTripById(updatedTrip, id)
     .then(() => {
-        res.status(201).json({ message: `Movie ID: ${id} has been updated successfully` });
+        res.status(201).json({ message: `Trip ID: ${id} has been updated successfully` });
     })
     .catch((err) => {
       res.status(500).json({ error: err });
     });
 });
 
-// ========== DELETE MOVIE ==========
-app.delete("/api/movies/:id", (req, res) => {
+// ========== DELETE TRIP ==========
+app.delete("/api/trips/:id", (req, res) => {
     const id = req.params.id;
-    db.deleteMovieById(id)
+    db.deleteTripById(id)
     .then(() => {
-        res.status(201).json({ message: `Movie ID: ${id} has been deleted successfully` });
+        res.status(201).json({ message: `Trip ID: ${id} has been deleted successfully` });
     })
     .catch((err) => {
         res.status(500).json({ error: err });
